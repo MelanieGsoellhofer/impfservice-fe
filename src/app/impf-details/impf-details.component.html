@@ -1,0 +1,55 @@
+<br>
+<div class="ui left aligned container">
+    <div class="ui grid" *ngIf="vaccination">
+        <div class="one column">
+            <h1>Detailansicht</h1>
+
+            <div><b>Ort: </b>{{vaccination.location.title}}</div>
+            <div><b>Adresse:</b> {{vaccination.location.adress}}</div>
+            <div><b>Datum: </b>{{vaccination.vaccinationdate}}</div>
+
+            <div>
+                <div> <b>Von: </b>{{vaccination.starttime}}<b> bis </b>{{vaccination.endtime}}</div>
+
+                <div><b>Maximale Teilnehmeranzahl: </b> {{vaccination.maxparticipants}}</div>
+
+                <h3>Angemeldete Teilnehmer: </h3>
+                <table class="ui striped aligned table">
+                    <thead>
+                    <th>Vorname</th>
+                    <th>Nachname</th>
+                    <th>Geimpft</th>
+                    <th>Geschlecht</th>
+                    </thead>
+                    <tbody *ngFor="let user of vaccination.users" >
+                    <tr>
+                        <td data-label="Vorname">{{user.firstname}}</td>
+                        <td data-label="Nachname">{{user.lastname}} </td>
+                        <td data-label="Geschlecht">{{user.gender}}</td>
+                        <td data-label="Geimpft">{{user.isvaccinated}}</td>
+                    </tr>
+                    </tbody>
+
+
+        </table>
+            </div>
+            <br>
+            <br>
+
+
+                <button [routerLink]="'/impfungen'" class="circular ui icon button"> <i class="backward icon"></i></button>
+                <button *ngIf="authService.isLoggedIn()" class="circular ui icon button" (click)="removeImpfung()">
+                    <i class="remove icon"></i>
+                </button>
+                <button *ngIf="authService.isLoggedIn()" class="circular ui icon button" [routerLink]="['../../admin', vaccination?.id]">
+                    <i class="write icon"></i>
+                </button>
+
+
+        </div>
+
+
+    </div>
+
+</div>
+

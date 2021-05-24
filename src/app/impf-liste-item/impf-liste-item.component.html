@@ -1,0 +1,11 @@
+<div class="content" *ngIf="vaccination">
+    <div class="header" *ngIf="vaccination.location.title">{{vaccination.location.title}}</div>
+    <div class="meta">
+        <div>Datum: {{vaccination.vaccinationdate}}</div>
+    </div>
+    <div class="description">
+
+        <div><b>Adresse: </b>{{vaccination.location.adress}}</div>
+        <div> <b>Von:  </b>{{vaccination.starttime}}<b>  bis  </b>{{vaccination.endtime}}</div>
+    </div>
+</div>

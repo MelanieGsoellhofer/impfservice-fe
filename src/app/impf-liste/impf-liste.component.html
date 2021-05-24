@@ -1,0 +1,18 @@
+<br>
+<div class="ui left aligned container">
+    <h1>Die nächsten Impfungen</h1>
+<div class="ui two cards">
+    <a *ngFor="let vaccination of vaccinations" class="ui card is-impf-liste-item"
+       [vaccination]="vaccination" [routerLink]="vaccination.id"> </a>
+</div>
+
+     <p *ngIf="vaccinations && !vaccinations.length">Es wurden noch keine Impfungen eingetragen.</p>
+</div>
+
+
+
+
+
+
+
+

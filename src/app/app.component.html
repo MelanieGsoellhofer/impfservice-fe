@@ -1,0 +1,21 @@
+<div class="ui inverted brown segment">
+    <!--   <div class="ui inverted secondary pointing menu">-->
+<div class="ui inverted secondary {{isLoggedIn()?'four':'three'}} item brown tabs menu">
+    <a routerLink="home" routerLinkActive="active" class="item">Home</a>
+    <a routerLink="impfungen" routerLinkActive="active" class="item">Impfungen</a>
+    <a *ngIf="isLoggedIn()" routerLink="admin" routerLinkActive="active" class="item">Admin</a>
+    <div class="right menu">
+
+        <a routerLink="login" routerLinkActive="active" class="item">{{getLoginLabel()}}</a>
+    </div>
+
+
+
+ </div>
+</div>
+
+
+<router-outlet></router-outlet>
+
+
+
