@@ -21,7 +21,7 @@ export class ImpfContainerService {
         .pipe(retry(3)).pipe(catchError(this.errorHandler));
   }
 
-   remove(id: number) : Observable<any> {
+  remove(id: number ) : Observable<any> {
     return this.http.delete(`${this.api}/impfungen/${id}`)
         .pipe(retry(3)).pipe(catchError(this.errorHandler));
   }

@@ -15,7 +15,7 @@ import { AuthenticationService} from "../shared/authentication.service";
 export class ImpfDetailsComponent implements OnInit {
 
   //@Input() vaccination: Vaccination
-  vaccination:Vaccination = ImpfLabor.empty();
+  vaccination:Vaccination = null;
 
   constructor(
       private is: ImpfContainerService,
@@ -30,10 +30,12 @@ export class ImpfDetailsComponent implements OnInit {
   }
 
   removeImpfung(){
-    if (confirm('Impfung löschen? Sicher?')){
-      this.is.remove(this.vaccination.id)
-          .subscribe(res => this.router.navigate(['../'], { relativeTo:
-            this.route }));
+    if (confirm('Möchtest du die Impfung wirklich löschen? ')){
+      //console.log('delete');
+      const para = this.route.snapshot.params;
+      this.is.remove(para['id'])
+          .subscribe(res => this.router.navigate(['../'],
+              { relativeTo: this.route }));
     }
   }
 

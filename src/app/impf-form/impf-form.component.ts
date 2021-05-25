@@ -6,6 +6,7 @@ import { ImpfContainerService } from "../shared/impf-container.service";
 import { Vaccination } from "../shared/vaccination";
 import { ImpfFormErrorMessages} from "./impf-form-error-messages";
 import { ImpfValidators} from "../shared/impf-validators";
+import { Location} from "../shared/location";
 
 @Component({
   selector: 'is-impf-form',
@@ -27,15 +28,14 @@ export class ImpfFormComponent implements OnInit {
       private router: Router
   ) { }
 
-  ngOnInit() {
-
-
+  ngOnInit(): void{
 
 /*
 Das passiert, wenn wir eine ID haben!
 Asynchron! Ich weis nicht, wann ich eine ID übergeben bekomme.
  */
     const id = this.route.snapshot.params["id"];
+    // Wenn ID vorhanden ist:
     if (id) {
       this.isUpdatingImpfung = true;
       this.is.getSingle(id).subscribe(vaccination => {
@@ -49,31 +49,28 @@ Asynchron! Ich weis nicht, wann ich eine ID übergeben bekomme.
 
   /*
   Auslagern der Init-Methode
-  Hier wird die Impfung initialisiert.
+  Hier wird das Formular initialisiert. (auch wenn keine ID vom REST geliefert wird!
   */
 
   initImpfung() {
-    this.buildUsersArray();
+    //this.buildUsersArray();
+
+    // Properties zuweisen:
     this.impfForm = this.fb.group({
       id: [
         this.vaccination.id, [
           Validators.required,
         ], this.isUpdatingImpfung ? null : ImpfValidators.idExists(this.is)
       ],
-      impfdatum: [this.vaccination.vaccinationdate, Validators.required],
-
-     /* ort: [this.impfung.location, Validators.required],
-      bezeichnung: this.impfung.bezeichnung,
-      adresse: [this.impfung.adresse, Validators.required],
-      hausnummer: [this.impfung.hausnummer, Validators.required],
-      plz: [this.impfung.plz, Validators.required], */
-
-      startzeitpunkt: [this.vaccination.starttime, Validators.required],
-      endzeitpunkt: [this.vaccination.endtime, Validators.required],
-      maxTN: [this.vaccination.maxparticipants, [Validators.required,
+      vaccinationdate: [this.vaccination.vaccinationdate, Validators.required],
+      starttime: [this.vaccination.starttime, Validators.required],
+      endtime: [this.vaccination.endtime, Validators.required],
+      maxparticipants: [this.vaccination.maxparticipants, [Validators.required,
           Validators.max(30), Validators.min(5)]],
-     // users: this.users,
-      //location: [this.impfung.location, [ Validators.required ]]
+      title: [this.vaccination.location.title, [ Validators.required ]],
+      adress: [this.vaccination.location.adress, [ Validators.required]],
+      zipcode: [this.vaccination.location.zipcode, [Validators.required]],
+      description: [this.vaccination.location.description],
     });
 
     /*Jedes mal wenn sich etwas tut, dann werden die ErrorMessages upgedated */
@@ -84,11 +81,10 @@ Asynchron! Ich weis nicht, wann ich eine ID übergeben bekomme.
 
 
   //Subformulare für die User erstellen
-
-  buildUsersArray() {
-   // this.users = this.fb.array([]);
-    console.log(this.users);
-    for (let user of this.vaccination.users) {
+  //buildUsersArray() {
+    //this.users = this.fb.array([]);
+    //console.log(this.users);
+   /* for (let user of this.vaccination.users) {
       let fg = this.fb.group({
         User_id: new FormControl(user.id),
         Vorname: new FormControl (user.firstname, [Validators.required]),
@@ -101,28 +97,23 @@ Asynchron! Ich weis nicht, wann ich eine ID übergeben bekomme.
         email: new FormControl(user.email, [Validators.required]),
         password: new FormControl(user.password, [Validators.required])
       });
-     // this.users.push(fg);
+     //this.users.push(fg);
     }
   }
 
   addUsersControl() {
-   // this.users.push(this.fb.group({ vorname:null, nachname:null, geschlecht:null, SVNr: null, Impfung_Verabreicht: null}));
-  }
+    //this.users.push(this.fb.group({ vorname:null, nachname:null, geschlecht:null, SVNr: null, Impfung_Verabreicht: null}));
+  }*/
 
 
   submitForm() {
-    //console.log(this.impfForm.value.users);
-    // wir sehen nach, ob im "Vorname" etwas drinnen steht. Wenn nicht dann schmeißen wir es raus!
-    this.impfForm.value.users = this.impfForm.value.users.filter(
-          impfwilliger => impfwilliger.vorname == true
-    );
     console.log(this.impfForm);
 
     const vaccination: Vaccination = ImpfLabor.fromObject(this.impfForm.value);
-
-    vaccination.users = this.vaccination.users;
+    //console.log(formatDate(vaccination.vaccinationdate));
     console.log(vaccination);
 
+    //Wir überspeichern eine bereits bestehende Impfung mit neuen Daten mittels UPDATE
     if (this.isUpdatingImpfung) {
       this.is.update(vaccination).subscribe(res => {
             this.router.navigate(["../../impfungen", vaccination.id], {
@@ -134,8 +125,10 @@ Asynchron! Ich weis nicht, wann ich eine ID übergeben bekomme.
           });
 
     }  else {
-     // impfung.Rolle = 'admin'; */
-      console.log(vaccination);
+
+
+      // Wir erstellen ein neues Buch mittels CREATE
+      //console.log(vaccination);
       this.is.create(vaccination).subscribe(res => {
             this.vaccination = ImpfLabor.empty();
             this.impfForm.reset(ImpfLabor.empty());
@@ -153,17 +146,17 @@ Asynchron! Ich weis nicht, wann ich eine ID übergeben bekomme.
   }
 
   updateErrorMessages() {
-    console.log("form invalid? " + this.impfForm.invalid);
-
+    console.log("Formular invalid? " + this.impfForm.invalid);
     this.errors = {}; // Array wo wir unsere Fehler hineinspeichern
 
+    // Wir gehen alle Error Messages im ImpfFormErrorMessages durch
     for (const message of ImpfFormErrorMessages) {
       const control = this.impfForm.get(message.forControl);
 
       if (
           control &&                                  // gibt es control überhaupt?
           control.dirty &&                            // dirty = binding zwischen Model und Formular ist nicht aufrecht
-          control.invalid &&
+          control.invalid &&                          // ist das control invalid?
           control.errors[message.forValidator] &&
           !this.errors[message.forControl]
       ) {
@@ -174,4 +167,8 @@ Asynchron! Ich weis nicht, wann ich eine ID übergeben bekomme.
 
   }
 
+
+
 }
+
+

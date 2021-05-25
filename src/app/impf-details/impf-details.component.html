@@ -2,7 +2,12 @@
 <div class="ui left aligned container">
     <div class="ui grid" *ngIf="vaccination">
         <div class="one column">
-            <h1>Detailansicht</h1>
+            <div>
+                <h1>Detailansicht</h1>
+
+            </div>
+            <br>
+
 
             <div><b>Ort: </b>{{vaccination.location.title}}</div>
             <div><b>Adresse:</b> {{vaccination.location.adress}}</div>
@@ -13,37 +18,43 @@
 
                 <div><b>Maximale Teilnehmeranzahl: </b> {{vaccination.maxparticipants}}</div>
 
-                <h3>Angemeldete Teilnehmer: </h3>
-                <table class="ui striped aligned table">
-                    <thead>
-                    <th>Vorname</th>
-                    <th>Nachname</th>
-                    <th>Geimpft</th>
-                    <th>Geschlecht</th>
-                    </thead>
-                    <tbody *ngFor="let user of vaccination.users" >
-                    <tr>
-                        <td data-label="Vorname">{{user.firstname}}</td>
-                        <td data-label="Nachname">{{user.lastname}} </td>
-                        <td data-label="Geschlecht">{{user.gender}}</td>
-                        <td data-label="Geimpft">{{user.isvaccinated}}</td>
-                    </tr>
-                    </tbody>
+                <br>
+                <div *ngIf="authService.isLoggedIn() && authService.isAdminLoggedIn()">
+                    <h3>Angemeldete Teilnehmer: </h3>
+                    <table class="ui striped aligned table">
+                        <thead>
+                        <th>Vorname</th>
+                        <th>Nachname</th>
+                        <th>Geschlecht</th>
+                        <th>Geimpft</th>
+                        </thead>
+                        <tbody *ngFor="let user of vaccination.users" >
+                        <tr>
+                            <td data-label="Vorname">{{user.firstname}}</td>
+                            <td data-label="Nachname">{{user.lastname}} </td>
+                            <td data-label="Geschlecht">{{user.gender}}</td>
+                            <td data-label="Geimpft">{{user.isvaccinated}}</td>
+                        </tr>
+                        </tbody>
 
 
-        </table>
+                    </table>
+                </div>
+
             </div>
             <br>
             <br>
 
 
                 <button [routerLink]="'/impfungen'" class="circular ui icon button"> <i class="backward icon"></i></button>
-                <button *ngIf="authService.isLoggedIn()" class="circular ui icon button" (click)="removeImpfung()">
+                <button *ngIf="authService.isLoggedIn() && authService.isAdminLoggedIn()" class="circular ui icon button" (click)="removeImpfung()">
                     <i class="remove icon"></i>
                 </button>
-                <button *ngIf="authService.isLoggedIn()" class="circular ui icon button" [routerLink]="['../../admin', vaccination?.id]">
+                <button *ngIf="authService.isLoggedIn() && authService.isAdminLoggedIn()" class="circular ui icon button" [routerLink]="['../../admin', vaccination?.id]">
                     <i class="write icon"></i>
                 </button>
+            <br><br>
+            <button *ngIf="authService.isLoggedIn()" class="ui labeled icon button"><i class="sign-in icon"></i>Zum Impftermin anmelden</button>
 
 
         </div>

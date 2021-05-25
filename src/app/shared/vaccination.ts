@@ -1,6 +1,7 @@
 import {User} from "./user";
 export {User} from "./user";
 export {Location} from "./location";
+import {Location} from "./location";
 
 export class Vaccination {
     constructor(

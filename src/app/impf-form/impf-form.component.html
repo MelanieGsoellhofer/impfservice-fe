@@ -17,80 +17,78 @@
         </div>
 
         <div class="field">
-            <label>Location</label>
-            <input formControlName="ort">
-            <div *ngIf="errors.ort" class="ui negative message"> {{ errors.ort }} </div>
-        </div>
-        <div class="field">
-            <label>Location-Bezeichhnung</label>
-            <input formControlName="bezeichnung">
-        </div>
-        <div class="field">
-            <label>Impfadresse</label>
-            <input formControlName="adresse">
-            <div *ngIf="errors.adresse" class="ui negative message"> {{ errors.adresse }} </div>
-        </div>
-        <div class="field">
-            <label>Hausnummer</label>
-            <input type="number" formControlName="hausnummer">
-            <div *ngIf="errors.hausnummer" class="ui negative message"> {{ errors.hausnummer }} </div>
-        </div>
-        <div class="field">
-            <label>PLZ</label>
-            <input type="number" formControlName="plz">
-            <div *ngIf="errors.plz" class="ui negative message"> {{ errors.plz }} </div>
-        </div>
-
-        <div class="field">
             <label>Startzeitpunkt</label>
-            <input type="time" formControlName="startzeitpunkt">
-            <div *ngIf="errors.startzeitpunkt" class="ui negative message"> {{ errors.startzeitpunkt }} </div>
+            <input type="time" formControlName="starttime">
+            <div *ngIf="errors.starttime" class="ui negative message"> {{ errors.starttime }} </div>
         </div>
 
         <div class="field">
             <label>Endzeitpunkt</label>
-            <input type="time" formControlName="endzeitpunkt">
-            <div *ngIf="errors.endzeitpunkt" class="ui negative message"> {{ errors.endzeitpunkt }} </div>
+            <input type="time" formControlName="endtime">
+            <div *ngIf="errors.endtime" class="ui negative message"> {{ errors.endtime }} </div>
         </div>
 
         <div class="field">
             <label>Maximale Teilnehmeranzahl</label>
-            <input type="number" formControlName="maxTN">
-            <div *ngIf="errors.maxTN" class="ui negative message"> {{ errors.maxTN }} </div>
+            <input type="number" formControlName="maxparticipants">
+            <div *ngIf="errors.maxparticipants" class="ui negative message"> {{ errors.maxparticipants }} </div>
         </div>
 
+      <div class="field">
+          <label>Location Name</label>
+          <input formControlName="title">
+          <div *ngIf="errors.title" class="ui negative message"> {{ errors.title }} </div>
+      </div>
 
+       <div class="field">
+          <label>Adresse</label>
+          <input formControlName="adress">
+           <div *ngIf="errors.adress" class="ui negative message"> {{ errors.adress }} </div>
+      </div>
 
         <div class="field">
-            <label>Impfwillige</label>
-
-            <div formArrayName="users">
-                <div class="fields" *ngFor="let control of users?.controls; index as i; last as l" [formGroupName]="i">
-                    <input type="hidden" name="id">
-
-                    <div class="four wide field">
-                        <input formControlName="vorname" placeholder="Vorname">
-                    </div>
-                    <div class="four wide field">
-                        <input formControlName="nachname" placeholder="Nachname">
-                    </div>
-                    <div class="two wide field">
-                        <input formControlName="geschlecht" placeholder="Geschlecht">
-                    </div>
-                    <div class="two wide field">
-                        <input formControlName="svnr" placeholder="SVNr">
-                    </div>
-                    <div class="four wide field">
-                        <input formControlName="Impfung_Verabreicht" placeholder="Impfung verabreicht">
-                    </div>
-
-                    <div class="one wide field" *ngIf="l">
-                        <button (click)="addUsersControl()" class="ui large button" type="button">+</button>
-                    </div>
-                </div>
-
-            </div>
+            <label>PLZ</label>
+            <input formControlName="zipcode">
+            <div *ngIf="errors.zipcode" class="ui negative message"> {{ errors.zipcode }} </div>
         </div>
+
+        <div class="field">
+            <label>Location-Bezeichnung</label>
+            <input formControlName="description">
+        </div>
+
+
+<!--
+              <div class="field">
+                  <label>Impfwillige</label>
+
+                  <div formArrayName="users">
+                      <div class="fields" *ngFor="let control of users?.controls; index as i; last as l" [formGroupName]="i">
+                          <input type="hidden" name="id">
+
+                          <div class="four wide field">
+                              <input formControlName="vorname" placeholder="Vorname">
+                          </div>
+                          <div class="four wide field">
+                              <input formControlName="nachname" placeholder="Nachname">
+                          </div>
+                          <div class="two wide field">
+                              <input formControlName="geschlecht" placeholder="Geschlecht">
+                          </div>
+                          <div class="two wide field">
+                              <input formControlName="svnr" placeholder="SVNr">
+                          </div>
+                          <div class="four wide field">
+                              <input formControlName="Impfung_Verabreicht" placeholder="Impfung verabreicht">
+                          </div>
+
+                          <div class="one wide field" *ngIf="l">
+                              <button (click)="addUsersControl()" class="ui large button" type="button">+</button>
+                          </div>
+                      </div>
+
+                  </div>
+              </div> -->
 
 
         <button type="submit" class="ui button" [disabled]="impfForm.invalid">Speichern</button>
