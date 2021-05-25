@@ -31,6 +31,7 @@ export class LoginComponent implements OnInit {
 
   login() {
     const val = this.loginForm.value;
+    //console.log("Wir melden uns an");
     if (val.email && val.password) {
       // login magic
       this.authService.login(val.email, val.password).subscribe(

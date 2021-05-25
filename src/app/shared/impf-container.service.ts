@@ -3,6 +3,7 @@ import { Vaccination} from "./vaccination";
 import { HttpClient } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError, retry} from 'rxjs/operators';
+import { User} from "./user";
 
 @Injectable()
 export class ImpfContainerService {
@@ -39,6 +40,12 @@ export class ImpfContainerService {
 
   check (id: string) : Observable<Boolean> {
     return this.http.get<Boolean>(`${this.api}/impfungen/checkid/${id}`)
+        .pipe(retry(3)).pipe(catchError(this.errorHandler));
+
+  }
+
+  register (id: string, svnr: string) : Observable<Boolean> {
+    return this.http.put(`${this.api}/register/${id}/${svnr}`, id)
         .pipe(retry(3)).pipe(catchError(this.errorHandler));
 
   }

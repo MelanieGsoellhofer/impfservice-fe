@@ -54,7 +54,7 @@
                     <i class="write icon"></i>
                 </button>
             <br><br>
-            <button *ngIf="authService.isLoggedIn()" class="ui labeled icon button"><i class="sign-in icon"></i>Zum Impftermin anmelden</button>
+            <button *ngIf="authService.isLoggedIn()" class="ui labeled icon button" (click)="registerUser()"><i class="sign-in icon"></i>Zum Impftermin anmelden</button>
 
 
         </div>

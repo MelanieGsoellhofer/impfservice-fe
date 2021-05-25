@@ -119,13 +119,12 @@ Asynchron! Ich weis nicht, wann ich eine ID übergeben bekomme.
             this.router.navigate(["../../impfungen", vaccination.id], {
               relativeTo: this.route
             });
-          },
+          }           ,
           err => {
             console.log("Fehler ist passiert", err)
           });
 
     }  else {
-
 
       // Wir erstellen ein neues Buch mittels CREATE
       //console.log(vaccination);

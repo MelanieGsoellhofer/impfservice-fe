@@ -17,15 +17,25 @@ export class ImpfLabor {
         return new Vaccination(
             rawVaccination.id,
             typeof (rawVaccination.vaccinationdate) === 'string' ?
-                ImpfLabor.formatDate (new Date(rawVaccination.vaccinationdate)): rawVaccination.vaccinationdate  ,
+                ImpfLabor.formatDate (
+                    new Date(
+                    rawVaccination.vaccinationdate)): rawVaccination.vaccinationdate  ,
             rawVaccination.starttime,
             rawVaccination.endtime,
             rawVaccination.maxparticipants,
-            rawVaccination.location,
+            typeof (rawVaccination.location) === "object" ?
+             new Location(
+                 rawVaccination.location.title,
+                 rawVaccination.location.adress,
+                 rawVaccination.location.zipcode,
+                 rawVaccination.location.description): rawVaccination.location,
+            //rawVaccination.location.title,
             //rawVaccination.vaccination.location.title,
             //rawVaccination.vaccination.location.adress,
             //rawVaccination.vaccination.location.zipcode,
             //rawVaccination.vaccination.location.description,
+
+            //rawVaccination.users,
 
         );
     }

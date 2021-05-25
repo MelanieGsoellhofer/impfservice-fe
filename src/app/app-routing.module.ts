@@ -5,6 +5,7 @@ import { ImpfListeComponent} from "./impf-liste/impf-liste.component";
 import { HomeComponent} from "./home/home.component";
 import { ImpfFormComponent} from "./impf-form/impf-form.component";
 import { LoginComponent} from "./login/login.component";
+import {CanNavigateToAdminGuard} from "./can-navigate-to-admin.guard";
 
 
 const routes: Routes = [
@@ -13,7 +14,7 @@ const routes: Routes = [
     { path: 'home', component: HomeComponent },
     { path: 'impfungen', component: ImpfListeComponent },
     { path: 'impfungen/:id', component: ImpfDetailsComponent },
-    { path: 'admin', component: ImpfFormComponent},
+    { path: 'admin', component: ImpfFormComponent, canActivate:[CanNavigateToAdminGuard]},
     { path: 'admin/:id', component: ImpfFormComponent},
     { path: 'login', component: LoginComponent}
 
@@ -23,7 +24,7 @@ const routes: Routes = [
 @NgModule ({
     imports: [RouterModule.forRoot(routes)],
     exports: [RouterModule],
-    providers: []
+    providers: [CanNavigateToAdminGuard]
 })
 
 export class AppRoutingModule { }
