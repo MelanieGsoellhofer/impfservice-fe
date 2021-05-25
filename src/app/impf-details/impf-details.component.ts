@@ -41,13 +41,13 @@ export class ImpfDetailsComponent implements OnInit {
 
   registerUser(){
     if (confirm('Möchtest du dich wirklich zu dieser Impfung anmelden? ')){
-      console.log('angemeldet');
+      //console.log('angemeldet');
       const para = this.route.snapshot.params;
       this.is.register(para['id'], 'svnr')
           .subscribe(res => this.router.navigate(['../'],
               { relativeTo: this.route }));
     } else {
-      console.log("Du hast dich nicht angemeldet!");
+      console.log("Du hast dich NICHT angemeldet!");
     }
   }
 
