@@ -8,6 +8,7 @@ import {Vaccination} from "../shared/vaccination";
 })
 export class ImpfListeItemComponent implements OnInit {
 
+  // Wir benötigen den Decorator @Input() um die Daten zu erhalten
   @Input() vaccination: Vaccination
 
   constructor() { }

@@ -3,6 +3,7 @@ import {Location} from "./location";
 
 export class ImpfLabor {
 
+    // Methode liefert ein lees Buch zurück
     static empty(): Vaccination{
         console.log("wir sind im ImpfLabor in der Empty-Methode");
         // @ts-ignore
@@ -12,6 +13,7 @@ export class ImpfLabor {
         }]);
     }
 
+    // Methode liefert uns ein Buch aus bestehenden Rohdaten
     static fromObject(rawVaccination: any): Vaccination{
         console.log("wir sind im ImpfLabor in der fromObject-Methode");
         return new Vaccination(

@@ -22,6 +22,8 @@ const routes: Routes = [
 
 
 @NgModule ({
+    // Hier wird das RouterModule importiert.
+    // Mit forRoot() wird ein neues Moduel mit den Routing erzeugt.
     imports: [RouterModule.forRoot(routes)],
     exports: [RouterModule],
     providers: [CanNavigateToAdminGuard]

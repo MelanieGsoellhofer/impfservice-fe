@@ -12,6 +12,13 @@ export class ImpfContainerService {
 
   constructor(private http: HttpClient) { }
 
+  /*
+  die getAll() Methode liefert ein Observable zurück.
+  Das Observable enthält den Array mit Impfungen
+  Mit pipe hängen wir noch etwas drann
+  3 mal retry ansonsten Error.
+   */
+
   getAll() : Observable<Array<Vaccination>> {
     return this.http.get(`${this.api}/impfungen`)
         .pipe(retry(3)).pipe(catchError(this.errorHandler));
@@ -50,6 +57,7 @@ export class ImpfContainerService {
 
   }
 
+  // Error Handler
   private errorHandler(error: Error | any): Observable<any> {
     return throwError(error);
   }

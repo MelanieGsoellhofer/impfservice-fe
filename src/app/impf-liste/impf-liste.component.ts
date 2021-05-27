@@ -8,11 +8,12 @@ import {ImpfContainerService} from "../shared/impf-container.service";
 })
 export class ImpfListeComponent implements OnInit {
 
-
+    // wir speichern uns die Impfungen in eine Variable
     vaccinations: Vaccination[];
 
     constructor(private is: ImpfContainerService){}
 
+    // mit der Methode getAll() holen wir uns alle Imfpungen
     ngOnInit():void {
        this.is.getAll().subscribe(res => {
             this.vaccinations = res;

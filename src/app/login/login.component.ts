@@ -19,6 +19,7 @@ export class LoginComponent implements OnInit {
   constructor(
       private fb: FormBuilder,
       private router: Router,
+      //authservice kapselt die notwendigen REST Calls für das Login
       private authService : AuthenticationService,
   ) { }
 

@@ -25,10 +25,13 @@ export class ImpfDetailsComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    //Mithilfe der Klasse ActivatedRoute können die Parameter wieder ausgelesen werden
+    // Mit this.route.snapshot.params kann ein Objekt mit allen übergebenen Parametern abgeholt werden
     const params = this.route.snapshot.params;
     this.is.getSingle(params['id']).subscribe(i => this.vaccination = i);
   }
 
+  // mit Subscribe abonnieren wir das Observable. Wir melden uns an! ASYNCHRON
   removeImpfung(){
     if (confirm('Möchtest du die Impfung wirklich löschen? ')){
       //console.log('delete');

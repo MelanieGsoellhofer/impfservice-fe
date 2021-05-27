@@ -20,6 +20,7 @@ export class AuthenticationService {
   constructor(private http: HttpClient) { }
 
   // Methode übergibt E-Mail und Passwort an unseren Server/API
+    // POST weil wir im Body email und pw übergeben müssen
   login (email: string, password: string) {
     return this.http.post(`${this.api}/login`, {
       email: email,
